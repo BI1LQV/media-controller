@@ -16,9 +16,9 @@
         console.log("Connection open ...");
         ws.send("Hello WebSockets!");
     };
+    window.vedioEle=document.querySelector('video')||document.querySelector('bwp-video');
     ws.onmessage = function(evt) {
         console.log( "Received Message: " + evt.data);
-        window.vedioEle=document.querySelector('video');
         switch(evt.data){
             case 'fastforward':
                 vedioEle.currentTime+=10;
