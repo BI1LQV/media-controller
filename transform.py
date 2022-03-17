@@ -24,7 +24,7 @@ mp_hands = mp.solutions.hands
 
 print('hello')
 # 处理帧函数
-def process_frame(img):
+def process_frame(img,url):
     hands = mp_hands.Hands(static_image_mode=False,        # 是静态图片还是连续视频帧
                        max_num_hands=2,                # 最多检测几只手
                        min_detection_confidence=0.7,   # 置信度阈值
@@ -57,15 +57,16 @@ def process_frame(img):
                 xyz.append(cc)
             return xyz
     else:
-        print('errr')
+        print('errr'+url)
     #return xyz
 
 res=[]
-for i in range(1,3):
-    image=cv2.imread('./'+str(i)+'.jpg')
-    data = process_frame(image)
+for i in range(1,17):
+    url='./figures/f/_'+str(i)+'.jpg'
+    image=cv2.imread(url)
+    data = process_frame(image,url)
     res.append(data)
-file=open('./trains.txt','w')
+file=open('./f.txt','w')
 
 file.write(json.dumps(res))
 file.close()
