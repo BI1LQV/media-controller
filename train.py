@@ -1,14 +1,15 @@
 import tensorflow as tf
 import numpy as np
 import json
+import helper
 y=[]
 
-a=json.loads(open('./a.txt','r').read())
-b=json.loads(open('./b.txt','r').read())
-c=json.loads(open('./c.txt','r').read())
-d=json.loads(open('./d.txt','r').read())
-e=json.loads(open('./e.txt','r').read())
-f=json.loads(open('./f.txt','r').read())
+a=helper.preProcess(json.loads(open('./a.txt','r').read()))
+b=helper.preProcess(json.loads(open('./b.txt','r').read()))
+c=helper.preProcess(json.loads(open('./c.txt','r').read()))
+d=helper.preProcess(json.loads(open('./d.txt','r').read()))
+e=helper.preProcess(json.loads(open('./e.txt','r').read()))
+f=helper.preProcess(json.loads(open('./f.txt','r').read()))
 
 data=a+b+c+d+e+f
 
@@ -29,7 +30,6 @@ for i in range(len(f)):
 data=np.asarray(data)
 y=np.asarray(y)
 
-print(y)
 
 
 data=tf.convert_to_tensor(data)
@@ -43,8 +43,7 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Flatten(input_shape=(21, 3)),
     tf.keras.layers.Dense(20, activation='relu'),
     #tf.keras.layers.Dropout(0.2),
-    tf.keras.layers.Dense(3, activation='softmax'),
-    tf.keras.layers.Reshape([3])
+    tf.keras.layers.Dense(6, activation='softmax'),
 ])
 
 model.compile(optimizer='adam',
@@ -52,10 +51,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 
-
-
-
-model.fit(data,y , epochs=5)
+model.fit(data,y , epochs=500)
 
 
 
