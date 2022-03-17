@@ -22,7 +22,7 @@ mp_hands = mp.solutions.hands
 # 导入绘图函数
 #mpDraw = mp.solutions.drawing_utils 
 
-
+print('hello')
 # 处理帧函数
 def process_frame(img):
     hands = mp_hands.Hands(static_image_mode=False,        # 是静态图片还是连续视频帧
