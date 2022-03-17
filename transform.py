@@ -31,7 +31,7 @@ def process_frame(img):
                        min_tracking_confidence=0.5)    # 追踪阈值
     # 水平镜像翻转图像，使图中左右手与真实左右手对应
     # 参数 1：水平翻转，0：竖直翻转，-1：水平和竖直都翻转
-    #img = cv2.flip(img, 1)
+    img = cv2.flip(img, 1)
     # BGR转RGB
     img_RGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     # 将RGB图像输入模型，获取预测结果
