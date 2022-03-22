@@ -33,7 +33,7 @@ hands = mp_hands.Hands(static_image_mode=False,        # 是静态图片还是�
                        min_detection_confidence=0.7,   # 置信度阈值
                        min_tracking_confidence=0.5)    # 追踪阈值
 # 导入绘图函数
-mpDraw = mp.solutions.drawing_utils 
+mpDraw = mp.solutions.drawing_utils
 
 
 # # 处理单帧的函数
@@ -50,29 +50,31 @@ def process_frame(img):
     img_RGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     # 将RGB图像输入模型，获取预测结果
     results = hands.process(img_RGB)
-    
-    h, w = img.shape[0], img.shape[1]# 获取图像宽高
-    
-    if results.multi_hand_landmarks: # 如果有检测到手
+
+    h, w = img.shape[0], img.shape[1]  # 获取图像宽高
+
+    if results.multi_hand_landmarks:  # 如果有检测到手
         # 遍历每一只检测出的手
         for hand_idx in range(len(results.multi_hand_landmarks)):
-            hand_21 = results.multi_hand_landmarks[hand_idx] # 获取该手的所有关键点坐标
-            mpDraw.draw_landmarks(img, hand_21, mp_hands.HAND_CONNECTIONS) # 可视化
-            temp_handness = results.multi_handedness[hand_idx].classification[0].label# 记录左右手信息
-    
-            cz0 = hand_21.landmark[0].z# 获取手腕根部深度坐标
-            #print(temp_handness)
-            xyz=[]
-            for i in range(21):# 遍历该手的21个关键点
+            hand_21 = results.multi_hand_landmarks[hand_idx]  # 获取该手的所有关键点坐标
+            mpDraw.draw_landmarks(
+                img, hand_21, mp_hands.HAND_CONNECTIONS)  # 可视化
+            # 记录左右手信息
+            temp_handness = results.multi_handedness[hand_idx].classification[0].label
+
+            cz0 = hand_21.landmark[0].z  # 获取手腕根部深度坐标
+            # print(temp_handness)
+            xyz = []
+            for i in range(21):  # 遍历该手的21个关键点
                 # 获取3D坐标
                 cx = int(hand_21.landmark[i].x * w)
                 cy = int(hand_21.landmark[i].y * h)
                 cz = hand_21.landmark[i].z
-                cc=[cx,cy,cz]
+                cc = [cx, cy, cz]
                 xyz.append(cc)
-            #print(xyz)
+            # print(xyz)
             print(train.predictPoint(xyz))
-            
+
     return img
 
 
@@ -81,7 +83,7 @@ def process_frame(img):
 # In[4]:
 
 
-#time.sleep(3)
+# time.sleep(3)
 # 获取摄像头，传入0表示获取系统默认摄像头
 cap = cv2.VideoCapture(0)
 success, image = cap.read()
@@ -97,20 +99,19 @@ while cap.isOpened():
     if not success:
         print('Error')
         break
-    
-    ## !!!处理帧函数
+
+    # !!!处理帧函数
     frame = process_frame(frame)
-    
+
     # 展示处理后的三通道图像
-    cv2.imshow('my_window',frame)
-        
-    if cv2.waitKey(1) in [ord('q'),27]: # 按键盘上的q或esc退出（在英文输入法下）
+    cv2.imshow('my_window', frame)
+
+    if cv2.waitKey(1) in [ord('q'), 27]:  # 按键盘上的q或esc退出（在英文输入法下）
         break
 
-    
+
 # 关闭摄像头
 cap.release()
 
 # 关闭图像窗口
 cv2.destroyAllWindows()
-
