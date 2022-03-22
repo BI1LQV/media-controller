@@ -14,8 +14,6 @@ import time
 import mediapipe as mp
 # 导入python绘图matplotlib
 import matplotlib.pyplot as plt
-# 进度条库
-from tqdm import tqdm
 import train
 
 

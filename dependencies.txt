@@ -1,2 +1,6 @@
 pywin32
 requests
+numpy
+tensorflow
+mediapipe
+matplotlib

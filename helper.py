@@ -1,6 +1,3 @@
-from numpy import Inf, Infinity
-
-
 def preProcess(list):
     res = []
     for img in list:
