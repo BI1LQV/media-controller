@@ -51,7 +51,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 
-model.fit(data,y , epochs=5)
+model.fit(data,y , epochs=50)
 
 
 def predictPoint(points):

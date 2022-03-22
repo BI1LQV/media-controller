@@ -1,4 +1,3 @@
-from re import I
 from numpy import Inf, Infinity
 
 

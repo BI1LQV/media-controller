@@ -45,7 +45,7 @@ mpDraw = mp.solutions.drawing_utils
 def process_frame(img):
     # 水平镜像翻转图像，使图中左右手与真实左右手对应
     # 参数 1：水平翻转，0：竖直翻转，-1：水平和竖直都翻转
-    img = cv2.flip(img, 1)
+    #img = cv2.flip(img, 1)
     # BGR转RGB
     img_RGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     # 将RGB图像输入模型，获取预测结果
@@ -61,7 +61,7 @@ def process_frame(img):
             temp_handness = results.multi_handedness[hand_idx].classification[0].label# 记录左右手信息
     
             cz0 = hand_21.landmark[0].z# 获取手腕根部深度坐标
-            print(temp_handness)
+            #print(temp_handness)
             xyz=[]
             for i in range(21):# 遍历该手的21个关键点
                 # 获取3D坐标
