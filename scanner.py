@@ -15,7 +15,7 @@ import mediapipe as mp
 # 导入python绘图matplotlib
 import matplotlib.pyplot as plt
 import train
-
+import executer
 
 print('trainend')
 # # 导入模型
@@ -71,7 +71,9 @@ def process_frame(img):
                 cc = [cx, cy, cz]
                 xyz.append(cc)
             # print(xyz)
-            print(train.predictPoint(xyz))
+            res = train.predictPoint(xyz)
+            print(res)
+            executer.actionExecute(res)
 
     return img
 
