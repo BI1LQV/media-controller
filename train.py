@@ -4,12 +4,12 @@ import json
 import helper
 y=[]
 
-a=helper.preProcess(json.loads(open('./a.txt','r').read()))
-b=helper.preProcess(json.loads(open('./b.txt','r').read()))
-c=helper.preProcess(json.loads(open('./c.txt','r').read()))
-d=helper.preProcess(json.loads(open('./d.txt','r').read()))
-e=helper.preProcess(json.loads(open('./e.txt','r').read()))
-f=helper.preProcess(json.loads(open('./f.txt','r').read()))
+a=helper.preProcess(json.loads(open('./datas/a.txt','r').read()))
+b=helper.preProcess(json.loads(open('./datas/b.txt','r').read()))
+c=helper.preProcess(json.loads(open('./datas/c.txt','r').read()))
+d=helper.preProcess(json.loads(open('./datas/d.txt','r').read()))
+e=helper.preProcess(json.loads(open('./datas/e.txt','r').read()))
+f=helper.preProcess(json.loads(open('./datas/f.txt','r').read()))
 #print(1)
 data=a+b+c+d+e+f
 
