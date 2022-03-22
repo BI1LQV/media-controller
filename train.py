@@ -10,7 +10,7 @@ c=helper.preProcess(json.loads(open('./c.txt','r').read()))
 d=helper.preProcess(json.loads(open('./d.txt','r').read()))
 e=helper.preProcess(json.loads(open('./e.txt','r').read()))
 f=helper.preProcess(json.loads(open('./f.txt','r').read()))
-
+#print(1)
 data=a+b+c+d+e+f
 
 for i in range(len(a)):
