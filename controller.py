@@ -4,6 +4,7 @@ from win32con import VK_MEDIA_PLAY_PAUSE as VK_MEDIA_PLAY_PAUSE  # 暂停播放
 from win32con import VK_VOLUME_MUTE, VK_VOLUME_DOWN, VK_VOLUME_UP  # 音量控制
 from win32con import VK_MEDIA_NEXT_TRACK, VK_MEDIA_PREV_TRACK  # 上一首下一首
 from win32con import VK_SNAPSHOT  # 截屏
+from win32con import VK_UP, VK_DOWN
 import requests
 
 
@@ -82,3 +83,11 @@ def rewind():
     后退
     '''
     requests.get("http://127.0.0.1:8090?action=rewind")
+
+
+def prePPT():
+    win32api.keybd_event(VK_UP, 0, KEYEVENTF_EXTENDEDKEY, 0)
+
+
+def nextPPT():
+    win32api.keybd_event(VK_DOWN, 0, KEYEVENTF_EXTENDEDKEY, 0)

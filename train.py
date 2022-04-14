@@ -6,40 +6,49 @@ y = []
 
 a = helper.preProcess(json.loads(open('./datas/a.txt', 'r').read()))
 b = helper.preProcess(json.loads(open('./datas/b.txt', 'r').read()))
-c = helper.preProcess(json.loads(open('./datas/c.txt', 'r').read()))
-d = helper.preProcess(json.loads(open('./datas/d.txt', 'r').read()))
-e = helper.preProcess(json.loads(open('./datas/e.txt', 'r').read()))
-f = helper.preProcess(json.loads(open('./datas/f.txt', 'r').read()))
-# print(1)
-data = a+b+c+d+e+f
+
+data = a+b
 
 for i in range(len(a)):
-    y.append(tf.one_hot(0, 6))
+    y.append(tf.one_hot(0, 2))
 for i in range(len(b)):
-    y.append(tf.one_hot(1, 6))
-for i in range(len(c)):
-    y.append(tf.one_hot(2, 6))
-for i in range(len(d)):
-    y.append(tf.one_hot(3, 6))
-for i in range(len(e)):
-    y.append(tf.one_hot(4, 6))
-for i in range(len(f)):
-    y.append(tf.one_hot(5, 6))
+    y.append(tf.one_hot(1, 2))
+
 
 
 data = np.asarray(data)
 y = np.asarray(y)
 
 
-data = tf.convert_to_tensor(data)
-y = tf.convert_to_tensor(y)
+toShuffle=[]
+for i in range(len(data)):
+    toShuffle.append([data[i],y[i]])
+import random
+random.shuffle(toShuffle)
+data=[p[0] for p in toShuffle]
+y=[p[1] for p in toShuffle]
+
+print(len(data))
+print(len(y))
+
+trainx=data[0:22]
+trainy=y[0:22]
+testx=data[22:30]
+testy=y[22:30]
+
+
+
+trainx = tf.convert_to_tensor(trainx)
+trainy = tf.convert_to_tensor(trainy)
+testx = tf.convert_to_tensor(testx)
+testy = tf.convert_to_tensor(testy)
 
 
 model = tf.keras.models.Sequential([
     tf.keras.layers.Flatten(input_shape=(21, 3)),
     tf.keras.layers.Dense(20, activation='relu'),
     # tf.keras.layers.Dropout(0.2),
-    tf.keras.layers.Dense(6, activation='softmax'),
+    tf.keras.layers.Dense(2, activation='softmax'),
 ])
 
 model.compile(optimizer='adam',
@@ -47,7 +56,7 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 
-model.fit(data, y, epochs=50)
+model.fit(trainx, trainy,validation_data=(testx,testy), epochs=50)
 
 
 def predictPoint(points):
